@@ -18,4 +18,11 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\LazyCat\" />
+    <Folder Include="BusinessLogic\Common\" />
+    <Folder Include="BusinessLogic\Interfaces\" />
+    <Folder Include="BusinessLogic\Services\" />
+  </ItemGroup>
+
 </Project>
