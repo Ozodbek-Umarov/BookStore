@@ -4,7 +4,7 @@ public interface IUnitOfWork
 {
     IAuthorInterface Authors { get; }
     IBookInterface Books { get; }
-/*    IGenreInterface Genres { get; }
-    IReviewInterface Reviews { get; }
-    IUserInterface Users { get; }*/
+    IJanrInterface Janrs { get; }
+    IUserInterface Users { get; }
+    IOrderInterface Orders { get; }
 }
