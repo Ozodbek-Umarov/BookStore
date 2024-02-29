@@ -18,7 +18,7 @@ public class BookRepository : Repository<Books>, IBookInterface
     {
         return _dbContext.Books
             .Include(b => b.Author)
-            .Include(b => b.Janr)
+            .Include(b => b.Genre)
             .ToList();
     }
 }

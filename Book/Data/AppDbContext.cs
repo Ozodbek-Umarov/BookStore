@@ -11,5 +11,5 @@ public class AppDbContext : DbContext
     public DbSet<User> Users { get; set; }
     public DbSet<Books> Books { get; set; }
     public DbSet<Author> Authors { get; set; }
-    public DbSet<Janr> Janrs { get; set; }
+    public DbSet<Genre> Janrs { get; set; }
 }

@@ -2,6 +2,6 @@
 
 namespace Book.Data.Interfaces;
 
-public interface IJanrInterface : IRepository<Janr>
+public interface IGenreInterface : IRepository<Genre>
 {
 }

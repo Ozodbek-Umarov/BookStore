@@ -7,7 +7,7 @@ public class Books : BaseEntity
     public double Price { get; set; }
     public int AuthorId { get; set; }
     public Author Author { get; set; } = new Author();
-    public int JanrId { get; set; }
-    public Janr Janr { get; set; } = new Janr();
+    public int GenreID { get; set; }
+    public Genre Genre { get; set; } = new Genre();
     public ICollection<OrderItems> OrderItems { get; set; } = new List<OrderItems>();
 }

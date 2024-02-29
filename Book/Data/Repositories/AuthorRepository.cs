@@ -1,5 +1,5 @@
 ﻿namespace Book.Data.Repositories;
 
-public class AuthorRepository
+public class AuthorRepository 
 {
 }
