@@ -77,7 +77,7 @@ namespace Book.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("Book.Data.Entities.Janr", b =>
+            modelBuilder.Entity("Book.Data.Entities.Genre", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -157,7 +157,7 @@ namespace Book.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FISH")
+                    b.Property<string>("FullName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -182,7 +182,7 @@ namespace Book.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Book.Data.Entities.Janr", "Janr")
+                    b.HasOne("Book.Data.Entities.Genre", "Janr")
                         .WithMany("Books")
                         .HasForeignKey("JanrId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -233,7 +233,7 @@ namespace Book.Migrations
                     b.Navigation("OrderItems");
                 });
 
-            modelBuilder.Entity("Book.Data.Entities.Janr", b =>
+            modelBuilder.Entity("Book.Data.Entities.Genre", b =>
                 {
                     b.Navigation("Books");
                 });
