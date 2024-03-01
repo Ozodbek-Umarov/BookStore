@@ -1,5 +1,9 @@
-﻿namespace Book.Data.Repositories;
+﻿using Book.Data.Entities;
+using Book.Data.Interfaces;
 
-public class AuthorRepository
+namespace Book.Data.Repositories;
+
+public class AuthorRepository(AppDbContext dbContext)
+    : Repository<Author>(dbContext), IAuthorInterface
 {
 }

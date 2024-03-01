@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Book.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240229093039_first")]
-    partial class first
+    [Migration("20240301085610_addimage")]
+    partial class addimage
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
