@@ -7,6 +7,6 @@ public interface IJanrService
     List<JanrDto> GetAll();
     JanrDto GetById(int id);
     void Create(AddJanrDto janrDto);
-    void Update(JanrDto janrDto);
+    void Update(UpdateJanrDto janrDto);
     void Delete(int id);
 }

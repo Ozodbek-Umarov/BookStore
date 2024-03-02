@@ -6,23 +6,29 @@ using Book.Data.Interfaces;
 
 namespace Book.BusinessLogic.Services;
 
-public class JanrService(IUnitOfWork unitOfWork)
+public class JanrService(IUnitOfWork unitOfWork,
+                        IFileService fileService)
     : IJanrService
 {
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
+    public IFileService _fileService = fileService;
+
     public void Create(AddJanrDto janrDto)
     {
         if (janrDto == null)
-            throw new CustomExeption("JanrDto is null");
+            throw new CustomExeption("","JanrDto is null");
         if (string.IsNullOrEmpty(janrDto.Name))
-            throw new CustomExeption("Janr Name is null or empty");
+            throw new CustomExeption("Name","Janr Name is null or empty");
         if (janrDto.Name.Length < 3 || janrDto.Name.Length > 30)
-            throw new CustomExeption("Janr Name must be beetween 3 and 30 characters");
+            throw new CustomExeption("Name","Janr Name must be beetween 3 and 30 characters");
+        if (janrDto.file == null)
+            throw new CustomExeption("file","Image is null");
 
         Janr janr = new()
         {
-            Name = janrDto.Name
+            Name = janrDto.Name,
+            ImageUrl = _fileService.UploadImage(janrDto.file)
         };
         _unitOfWork.Janrs.Add(janr);
     }
@@ -31,7 +37,8 @@ public class JanrService(IUnitOfWork unitOfWork)
     {
         var janr = _unitOfWork.Janrs.GetById(id);
         if (janr == null)
-            throw new CustomExeption("Janr not found");
+            throw new CustomExeption("","Janr not found");
+        _fileService.DeleteImage(janr.ImageUrl);
         _unitOfWork.Janrs.Delete(janr.Id);
     }
 
@@ -41,7 +48,8 @@ public class JanrService(IUnitOfWork unitOfWork)
         var list = janrs.Select(j => new JanrDto()
         {
             Id = j.Id,
-            Name = j.Name
+            Name = j.Name,
+            ImagePath = j.ImageUrl
         }).ToList();
         return list;
     }
@@ -50,31 +58,34 @@ public class JanrService(IUnitOfWork unitOfWork)
     {
         var janr = _unitOfWork.Janrs.GetById(id);
         if (janr == null)
-            throw new CustomExeption("Janr not found");
+            throw new CustomExeption("", "Janr not found");
 
         var dto = new JanrDto()
         {
             Id = janr.Id,
-            Name = janr.Name
+            Name = janr.Name,
+            ImagePath = janr.ImageUrl
         };
         return dto;
     }
 
-    public void Update(JanrDto janrDto)
+    public void Update(UpdateJanrDto janrDto)
     {
         var janr = _unitOfWork.Janrs.GetById(janrDto.Id);
         if (janr == null)
-            throw new CustomExeption("Janr not found");
+            throw new CustomExeption("", "Janr not found");
         if (string.IsNullOrEmpty(janrDto.Name))
-            throw new CustomExeption("Janr Name is null or empty");
+            throw new CustomExeption("", "Janr Name is null or empty");
         if (janrDto.Name.Length < 3 || janrDto.Name.Length > 30)
-            throw new CustomExeption("Janr Name must be beetween 3 and 30 characters");
-
-        var dto = new Janr()
+            throw new CustomExeption("", "Janr Name must be beetween 3 and 30 characters");
+        if (janrDto.file != null)
         {
-            Id = janrDto.Id,
-            Name = janrDto.Name
-        };
-        _unitOfWork.Janrs.Update(dto);
+            _fileService.DeleteImage(janr.ImageUrl);
+            janrDto.ImagePath = _fileService.UploadImage(janrDto.file);
+        }
+
+        janr.Name = janrDto.Name;
+        janr.ImageUrl = janrDto.ImagePath;
+        _unitOfWork.Janrs.Update(janr);
     }
 }

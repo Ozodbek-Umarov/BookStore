@@ -1,12 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace Book.Controllers
+namespace Book.Controllers;
+
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    public IActionResult Index()
     {
-        public IActionResult Index()
+        return View();
+    }
+    public IActionResult Error(string url)
+    {
+        if (url == null)
         {
-            return View();
+            url = "/";
         }
+        return View("Error404", url);
     }
 }

@@ -15,6 +15,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IJanrService, JanrService>();
+builder.Services.AddTransient<IFileService, FileService>();
 
 var app = builder.Build();
 
