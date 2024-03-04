@@ -4,87 +4,84 @@ using Book.BusinessLogic.Interfaces;
 using Book.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Book.Controllers
+namespace Book.Controllers;
+
+public class JanrsController(IJanrService janrService) 
+    : Controller
 {
-    public class JanrsController : Controller
+    private readonly IJanrService _janrService = janrService;
+
+
+    public IActionResult Index(int pageNumber = 1)
     {
-        private readonly IJanrService _janrService;
+        var janrs = _janrService.GetAll();
+        var pageModel = new PageModel<JanrDto>(janrs, pageNumber);
+        return View(pageModel);
+    }
 
-        public JanrsController(IJanrService janrService)
+    public IActionResult Add()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public IActionResult Add(AddJanrDto dto)
+    {
+        try
         {
-            _janrService = janrService;
+            _janrService.Create(dto);
+            return RedirectToAction("Index");
         }
-
-        public IActionResult Index()
+        catch (CustomExeption ex)
         {
-            var janrs = _janrService.GetAll();
-            return View(janrs);
+            ModelState.AddModelError("", ex.Message);
+            return View(dto);
         }
+    }
 
-        public IActionResult Add()
+    public IActionResult Delete(int id)
+    {
+        try
         {
-            return View();
+            _janrService.Delete(id);
+            return RedirectToAction("Index");
         }
-
-        [HttpPost]
-        public IActionResult Add(AddJanrDto dto)
+        catch (CustomExeption)
         {
-            try
-            {
-                _janrService.Create(dto);
-                return RedirectToAction("Index");
-            }
-            catch (CustomExeption ex)
-            {
-                ModelState.AddModelError("", ex.Message);
-                return View(dto);
-            }
+            return RedirectToAction("Error", "Home", new { url = "/janrs/index" });
         }
+    }
 
-        public IActionResult Delete(int id)
+    public IActionResult Edit(int id)
+    {
+        try
         {
-            try
+            var janr = _janrService.GetById(id);
+            var dto = new UpdateJanrDto
             {
-                _janrService.Delete(id);
-                return RedirectToAction("Index");
-            }
-            catch (CustomExeption)
-            {
-                return RedirectToAction("Error", "Home", new { url = "/janrs/index" });
-            }
+                Id = janr.Id,
+                Name = janr.Name
+            };
+            return View(dto);
         }
-
-        public IActionResult Edit(int id)
+        catch (CustomExeption)
         {
-            try
-            {
-                var janr = _janrService.GetById(id);
-                var dto = new UpdateJanrDto
-                {
-                    Id = janr.Id,
-                    Name = janr.Name
-                };
-                return View(dto);
-            }
-            catch (CustomExeption)
-            {
-                return RedirectToAction("Error", "Home", new { url = "/janrs/index" });
-            }
+            return RedirectToAction("Error", "Home", new { url = "/janrs/index" });
         }
+    }
 
-        [HttpPost]
-        public IActionResult Edit(UpdateJanrDto dto)
+    [HttpPost]
+    public IActionResult Edit(UpdateJanrDto dto)
+    {
+        try
         {
-            try
-            {
-                _janrService.Update(dto);
-                return RedirectToAction("Index");
-            }
-            catch (CustomExeption ex)
-            {
-                ModelState.AddModelError("", ex.Message);
-                return View(dto);
-            }
+            _janrService.Update(dto);
+            return RedirectToAction("Index");
+        }
+        catch (CustomExeption ex)
+        {
+            ModelState.AddModelError("", ex.Message);
+            return View(dto);
         }
     }
 }

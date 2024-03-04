@@ -7,4 +7,14 @@ public class PageModel<T>
     public int TotalPages { get; set; }
     public int TotalItemsCount { get; set; }
     public List<T> Items { get; set; } = new();
+    public PageModel(List<T> items, int pageNumber, int pageSize = 10)
+    {
+        PageSize = pageSize;
+        PageNumber = pageNumber;
+        TotalItemsCount = items.Count;
+        TotalPages = (int)Math.Ceiling(TotalItemsCount / (double)PageSize);
+        Items = items.Skip(pageSize * (pageNumber - 1))
+                     .Take(pageSize)
+                     .ToList();
+    }
 }
