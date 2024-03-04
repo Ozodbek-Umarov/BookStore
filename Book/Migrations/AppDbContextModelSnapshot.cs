@@ -77,17 +77,13 @@ namespace Book.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("Book.Data.Entities.Genre", b =>
+            modelBuilder.Entity("Book.Data.Entities.Janr", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -157,7 +153,7 @@ namespace Book.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FullName")
+                    b.Property<string>("FISH")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -182,7 +178,7 @@ namespace Book.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Book.Data.Entities.Genre", "Janr")
+                    b.HasOne("Book.Data.Entities.Janr", "Janr")
                         .WithMany("Books")
                         .HasForeignKey("JanrId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -233,7 +229,7 @@ namespace Book.Migrations
                     b.Navigation("OrderItems");
                 });
 
-            modelBuilder.Entity("Book.Data.Entities.Genre", b =>
+            modelBuilder.Entity("Book.Data.Entities.Janr", b =>
                 {
                     b.Navigation("Books");
                 });

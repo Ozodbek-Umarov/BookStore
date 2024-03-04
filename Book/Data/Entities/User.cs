@@ -2,7 +2,7 @@
 
 public class User   : BaseEntity
 {
-    public string FullName { get; set; } = null!;
+    public string FISH { get; set; } = null!;
     public string TelNomer { get; set; } = null!;
     public string Password { get; set; } = null!;
     public string Address { get; set; } = null!;

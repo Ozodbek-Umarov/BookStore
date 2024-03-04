@@ -12,8 +12,13 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Book.Migrations
 {
     [DbContext(typeof(AppDbContext))]
+<<<<<<<< HEAD:Book/Migrations/20240304112211_jonga_tegdi.Designer.cs
+    [Migration("20240304112211_jonga_tegdi")]
+    partial class jonga_tegdi
+========
     [Migration("20240229090721_Migrations")]
     partial class Migrations
+>>>>>>>> master:Book/Migrations/20240229090721_Migrations.Designer.cs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -87,10 +92,6 @@ namespace Book.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
