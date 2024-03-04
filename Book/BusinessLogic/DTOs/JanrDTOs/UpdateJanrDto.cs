@@ -2,5 +2,5 @@
 
 public class UpdateJanrDto : JanrDto
 {
-    public IFormFile file { get; set; } = null!;
+
 }

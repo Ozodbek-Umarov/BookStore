@@ -2,7 +2,7 @@
 
 <div class="d-flex justify-content-center">
     <div class="mt-4" style="width: 70%">
-        <form asp-controller="janrs" asp-action="add" enctype="multipart/form-data">
+        <form asp-controller="janrs" asp-action="add">
             <div class="card mb-4">
                 <h5 class="card-header">Yangi Janr</h5>
                 <div class="card-body">
@@ -13,11 +13,6 @@
                                id="defaultFormControlInput"
                                aria-describedby="defaultFormControlHelp" />
                         <span asp-validation-for="Name" class="text-danger"></span>
-                    </div>
-                    <div class="mb-3">
-                        <label for="formFile" class="form-label">Image</label>
-                        <input asp-for="file" class="form-control" type="file" id="formFile" />
-                        <span asp-validation-for="file" class="text-danger"></span>
                     </div>
                     <div class="d-flex justify-content-center">
                         <a asp-controller="janrs" asp-action="index" class="me-2 btn btn-secondary">Cancel</a>
