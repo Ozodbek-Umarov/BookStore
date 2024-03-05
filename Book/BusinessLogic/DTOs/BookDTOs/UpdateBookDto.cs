@@ -1,6 +1,6 @@
-﻿namespace Book.BusinessLogic.DTOs.BookDTOs
+﻿namespace Book.BusinessLogic.DTOs.BookDTOs;
+
+public class UpdateBookDto : AddBookDto
 {
-    public class UpdateBookDto
-    {
-    }
+        public int Id { get; set; }
 }

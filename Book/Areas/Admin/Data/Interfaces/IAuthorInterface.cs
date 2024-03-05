@@ -1,5 +1,7 @@
-﻿namespace Book.Data.Interfaces;
+﻿using Book.Data.Entities;
 
-public interface IAuthorInterface
+namespace Book.Data.Interfaces;
+
+public interface IAuthorInterface : IRepository<Author>
 {
 }
