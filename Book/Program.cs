@@ -1,3 +1,5 @@
+using AutoMapper;
+using Book.BusinessLogic.Commonl;
 using Book.BusinessLogic.Interfaces;
 using Book.BusinessLogic.Services;
 using Book.Data;
@@ -15,7 +17,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IJanrService, JanrService>();
+builder.Services.AddTransient<IAuthorService, AuthorService>();
+builder.Services.AddTransient<IBookService, BookService>();
 builder.Services.AddTransient<IFileService, FileService>();
+
+var mapConfig = new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile(new AutoMapperProfile());
+});
+
+builder.Services.AddSingleton(mapConfig.CreateMapper());
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 var app = builder.Build();
 

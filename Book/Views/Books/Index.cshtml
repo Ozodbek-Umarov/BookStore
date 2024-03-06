@@ -1,11 +1,11 @@
-﻿@model PageModel<JanrDto>
+﻿@model PageModel<BookDto>
 
 <div class="container-xxl flex-grow-1 container-p-y">
 
     <div class="card">
         <div class="d-flex justify-content-between align-items-center me-3">
-            <h5 class="card-header">Janrs table</h5>
-            <a asp-controller="Janrs" asp-action="add" class="btn btn-primary">+ New</a>
+            <h5 class="card-header">Books table</h5>
+            <a asp-controller="Books" asp-action="add" class="btn btn-primary">+ New</a>
         </div>
         <div class="table-responsive text-nowrap">
             @if (Model.Items.Any())
@@ -14,27 +14,45 @@
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Name</th>
+                            <th>Nomi</th>
+                            <th>Haqida</th>
+                            <th>Narx</th>
+                            <th>Muallid</th>
+                            <th>Janr</th>
+                            <th>Rasm</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                        @foreach (var Janr in Model.Items)
+                        @foreach(var Book in Model.Items)
                         {
                             <tr>
-                                <td><strong>@Janr.Id</strong></td>
-                                <td>@Janr.Name</td>
+                                <td><strong>@Book.Id</strong></td>
+                                <td>@Book.Name</td>
+                                <td>@Book.Description</td>
+                                <td>@Book.Price</td>
+                                <td>
+                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                        <li data-bs-toggle="tooltip"
+                                            data-popup="tooltip-custom"
+                                            data-bs-placement="top"
+                                            class="avatar avatar-xs pull-up"
+                                            title="@Book.Name">
+                                            <img src="@Book.ImagePath" asp-append-version="true" alt="Avatar" style="object-fit: cover"/>
+                                        </li>
+                                    </ul>
+                                </td>
                                 <td>
                                     <div class="dropdown">
                                         <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                                             <i class="bx bx-dots-vertical-rounded"></i>
                                         </button>
                                         <div class="dropdown-menu">
-                                            <a asp-controller="Janrs" asp-action="edit" asp-route-id="@Janr.Id"
+                                            <a asp-controller="Books" asp-action="edit" asp-route-id="@Book.Id"
                                                class="dropdown-item"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                                            <a asp-controller="Janrs" asp-action="delete" asp-route-id="@Janr.Id"
+                                            <a asp-controller="Books" asp-action="delete" asp-route-id="@Book.Id"
                                                onclick="return confirm('Are you sure delete?')"
-                                               class="dropdown-item"><i class="bx bx-trash me-1"></i> Delete</a>
+                                                class="dropdown-item"><i class="bx bx-trash me-1"></i> Delete</a>
                                         </div>
                                     </div>
                                 </td>
@@ -46,14 +64,14 @@
             else
             {
                 <div class="card-body">
-                    <p class="card-text">No Janrs found.</p>
+                    <p class="card-text">No Books found.</p>
                 </div>
             }
         </div>
 
         @if (Model.TotalPages > 1)
         {
-            <input type="hidden" value="@Model.PageNumber" id="pageNumber" />
+            <input type="hidden" value="@Model.PageNumber" id="pageNumber"/>
 
             <div class="d-flex justify-content-center">
                 @if (Model.TotalPages < 6)
@@ -62,26 +80,21 @@
                         <ul class="pagination">
                             @for (int i = 1; i <= Model.TotalPages; i++)
                             {
-                                if (Model.PageNumber == i)
-                                {
-                                    <li class="page-item active">
-                                        <a class="page-link"
-                                           asp-controller="Janrs" asp-action="index" asp-route-pageNumber="@i">@i</a>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li class="page-item">
-                                        <a class="page-link"
-                                           asp-controller="Janrs" asp-action="index" asp-route-pageNumber="@i">@i</a>
-                                    </li>
-                                }
+                               if (Model.PageNumber == i)
+                               {
+                                   <li class="page-item active"><a class="page-link" 
+                                   asp-controller="Books" asp-action="index" asp-route-pageNumber="@i">@i</a></li>
+                               }
+                               else
+                               {
+                                   <li class="page-item"><a class="page-link" 
+                                   asp-controller="Books" asp-action="index" asp-route-pageNumber="@i">@i</a></li>
+                               }
                             }
-
                         </ul>
                     </nav>
                 }
-                else if (Model.TotalPages >= 6 && Model.PageNumber < 3)
+                else if (Model.PageNumber < 3)
                 {
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
@@ -97,83 +110,67 @@
                             {
                                 <li class="page-item">
                                     <a class="page-link" aria-label="Previous"
-                                       asp-controller="Janrs" asp-action="index" asp-route-pageNumber="@(Model.PageNumber-1)">
+                                       asp-controller="Books" asp-action="index" asp-route-pageNumber="@(Model.PageNumber-1)">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
                             }
-                            <li class="page-item">
-                                <a class="page-link"
-                                   asp-controller="Janrs" asp-action="index" asp-route-pageNumber="1">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link"
-                                   asp-controller="Janrs" asp-action="index" asp-route-pageNumber="2">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link"
-                                   asp-controller="Janrs" asp-action="index" asp-route-pageNumber="3">3</a>
-                            </li>
+                            <li class="page-item"><a class="page-link" 
+                            asp-controller="Books" asp-action="index" asp-route-pageNumber="1">1</a></li>
+                            <li class="page-item"><a class="page-link"
+                            asp-controller="Books" asp-action="index" asp-route-pageNumber="2">2</a></li>
+                            <li class="page-item"><a class="page-link"
+                            asp-controller="Books" asp-action="index" asp-route-pageNumber="3">3</a></li>
                             <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
+                            <li class="page-item"><a class="page-link"
+                            asp-controller="Books" asp-action="index" asp-route-pageNumber="@Model.TotalPages">
+                                @Model.TotalPages
+                            </a></li>
                             <li class="page-item">
-                                <a class="page-link"
-                                   asp-controller="Janrs" asp-action="index" asp-route-pageNumber="@Model.TotalPages">
-                                    @Model.TotalPages
-                                </a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" aria-label="Next"
-                                   asp-controller="Janrs" asp-action="index" asp-route-pageNumber="@(Model.PageNumber+1)">
+                                <a class="page-link" aria-label="Previous"
+                                   asp-controller="Books" asp-action="index" asp-route-pageNumber="@(Model.PageNumber+1)">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
                         </ul>
                     </nav>
                 }
-
                 else if (Model.TotalPages - 2 >= Model.PageNumber)
                 {
                     <nav aria-label="Page navigation example">
                         <ul class="pagination">
                             <li class="page-item">
                                 <a class="page-link" aria-label="Previous"
-                                   asp-controller="Janrs" asp-action="index" asp-route-pageNumber="@(Model.PageNumber-1)">
+                                   asp-controller="Books" asp-action="index" asp-route-pageNumber="@(Model.PageNumber-1)">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li class="page-item">
-                                <a class="page-link"
-                                   asp-controller="Janrs" asp-action="index" asp-route-pageNumber="1">1</a>
-                            </li>
+                            <li class="page-item"><a class="page-link"
+                            asp-controller="Books" asp-action="index" asp-route-pageNumber="1"
+                            >1</a></li>
                             <li class="page-item disabled"><a class="page-link">...</a></li>
-                            <li class="page-item">
-                                <a class="page-link"
-                                   asp-controller="Janrs" asp-action="index" asp-route-pageNumber="@(Model.PageNumber - 1)">
+                            <li class="page-item"><a class="page-link"
+                            asp-controller="Books" asp-action="index" asp-route-pageNumber="@(Model.PageNumber - 1)">
                                     @(Model.PageNumber - 1)
-                                </a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link"
-                                   asp-controller="Janrs" asp-action="index" asp-route-pageNumber="@(Model.PageNumber)">
+                            </a></li>
+                            <li class="page-item"><a class="page-link"
+                            asp-controller="Books" asp-action="index" asp-route-pageNumber="@(Model.PageNumber)">
                                     @Model.PageNumber
-                                </a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link"
-                                   asp-controller="Janrs" asp-action="index" asp-route-pageNumber="@(Model.PageNumber + 1)">
+                            </a></li>
+                            <li class="page-item"><a class="page-link"
+                            asp-controller="Books" asp-action="index" asp-route-pageNumber="@(Model.PageNumber + 1)">
                                     @(Model.PageNumber + 1)
-                                </a>
-                            </li>
+                            </a></li>
                             <li class="page-item disabled"><a class="page-link">...</a></li>
                             <li class="page-item">
                                 <a class="page-link"
-                                   asp-controller="Janrs" asp-action="index" asp-route-pageNumber="@(Model.TotalPages)">
+                                asp-controller="Books" asp-action="index" asp-route-pageNumber="@(Model.TotalPages)">
                                     @Model.TotalPages
                                 </a>
                             </li>
                             <li class="page-item">
                                 <a class="page-link" aria-label="Previous"
-                                   asp-controller="Janrs" asp-action="index" asp-route-pageNumber="@(Model.PageNumber+1)">
+                                   asp-controller="Books" asp-action="index" asp-route-pageNumber="@(Model.PageNumber+1)">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
@@ -186,27 +183,25 @@
                         <ul class="pagination">
                             <li class="page-item">
                                 <a class="page-link" aria-label="Previous"
-                                   asp-controller="Janrs" asp-action="index" asp-route-pageNumber="@(Model.PageNumber-1)">
+                                   asp-controller="Books" asp-action="index" asp-route-pageNumber="@(Model.PageNumber-1)">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
-                            <li class="page-item">
-                                <a class="page-link"
-                                   asp-controller="Janrs" asp-action="index" asp-route-pageNumber="1">1</a>
-                            </li>
+                            <li class="page-item"><a class="page-link" 
+                            asp-controller="Books" asp-action="index" asp-route-pageNumber="1">1</a></li>
                             <li class="page-item disabled"><a class="page-link" href="#">...</a></li>
                             <li class="page-item">
-                                <a class="page-link" asp-controller="Janrs" asp-action="index" asp-route-pageNumber="@(Model.TotalPages - 2)">
+                                <a class="page-link" asp-controller="Books" asp-action="index" asp-route-pageNumber="@(Model.TotalPages - 2)">
                                     @(Model.TotalPages - 2)
                                 </a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" asp-controller="Janrs" asp-action="index" asp-route-pageNumber="@(Model.TotalPages - 1)">
+                                <a class="page-link" asp-controller="Books" asp-action="index" asp-route-pageNumber="@(Model.TotalPages - 1)">
                                     @(Model.TotalPages - 1)
                                 </a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" asp-controller="Janrs" asp-action="index" asp-route-pageNumber="@(Model.TotalPages)">
+                                <a class="page-link" asp-controller="Books" asp-action="index" asp-route-pageNumber="@(Model.TotalPages)">
                                     @Model.TotalPages
                                 </a>
                             </li>
@@ -222,7 +217,7 @@
                             {
                                 <li class="page-item">
                                     <a class="page-link" aria-label="Next"
-                                       asp-controller="Janrs" asp-action="index" asp-route-pageNumber="@(Model.PageNumber+1)">
+                                       asp-controller="Books" asp-action="index" asp-route-pageNumber="@(Model.PageNumber+1)">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
@@ -233,15 +228,18 @@
             </div>
         }
     </div>
+
 </div>
+
 <script>
     var pageNumber = document.getElementById('pageNumber').value;
-    var items = document.getElementsByClassName('page-link');
+    var Items = document.getElementsByClassName('page-item');
 
-    //get element inside of items
-for (var i = 0; i < items.length; i++) {
-        if (items[i].innerText == pageNumber) {
-            items[i].parentElement.classList.add('active');
+    //get a element inside of Items
+    for (var i = 0; i < Items.length; i++) {
+        if (Items[i].children[0].innerText == pageNumber) {
+            Items[i].classList.add('active');
         }
     }
+
 </script>
