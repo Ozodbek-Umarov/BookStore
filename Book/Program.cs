@@ -19,7 +19,9 @@ builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 builder.Services.AddTransient<IJanrService, JanrService>();
 builder.Services.AddTransient<IAuthorService, AuthorService>();
 builder.Services.AddTransient<IBookService, BookService>();
+builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<IFileService, FileService>();
+
 
 var mapConfig = new MapperConfiguration(cfg =>
 {
@@ -29,13 +31,22 @@ var mapConfig = new MapperConfiguration(cfg =>
 builder.Services.AddSingleton(mapConfig.CreateMapper());
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+builder.Services.AddAuthentication()
+    .AddCookie("Admin", config =>
+    {
+        config.LoginPath = "/admin/auth/login";
+    })
+    .AddCookie("User", config =>
+    {
+        config.LoginPath = "/auth/login";
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -45,6 +56,12 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthorization();
+
+
+app.MapControllerRoute(
+       name: "admin",
+       pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
 app.MapControllerRoute(
     name: "default",

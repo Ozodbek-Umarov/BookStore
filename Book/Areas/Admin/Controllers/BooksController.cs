@@ -1,10 +1,14 @@
 ﻿using Book.BusinessLogic.Common;
 using Book.BusinessLogic.DTOs.BookDTOs;
 using Book.BusinessLogic.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Book.Controllers;
+namespace Book.Areas.Admin.Controllers;
 
+
+[Area("admin")]
+[Authorize(AuthenticationSchemes = "Admin")]
 public class BooksController(IBookService bookService,
                             IJanrService janrService,
                             IAuthorService authorService)

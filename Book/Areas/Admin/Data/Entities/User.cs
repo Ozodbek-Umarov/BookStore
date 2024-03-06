@@ -7,4 +7,10 @@ public class User   : BaseEntity
     public string Password { get; set; } = null!;
     public string Address { get; set; } = null!;
     public ICollection<Order> Orders { get; set; } = new List<Order>();
+    public Role Role { get; set; } = Role.User;
+}
+public enum Role
+{
+    Admin,
+    User
 }

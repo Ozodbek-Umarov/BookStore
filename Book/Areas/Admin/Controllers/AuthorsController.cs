@@ -1,21 +1,23 @@
 ﻿using Book.BusinessLogic.Common;
-using Book.BusinessLogic.DTOs.JanrDTOs;
+using Book.BusinessLogic.DTOs.AuthorDTOs;
 using Book.BusinessLogic.Interfaces;
-using Book.Data.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Book.Controllers;
+namespace Book.Areas.Admin.Controllers;
 
-public class JanrsController(IJanrService janrService) 
+[Area("admin")]
+[Authorize(AuthenticationSchemes = "Admin")]
+public class AuthorsController(IAuthorService Authorservice)
     : Controller
 {
-    private readonly IJanrService _janrService = janrService;
+    private readonly IAuthorService _Authorservice = Authorservice;
 
 
     public IActionResult Index(int pageNumber = 1)
     {
-        var janrs = _janrService.GetAll();
-        var pageModel = new PageModel<JanrDto>(janrs, pageNumber);
+        var Authors = _Authorservice.GetAll();
+        var pageModel = new PageModel<AuthorDto>(Authors, pageNumber);
         return View(pageModel);
     }
 
@@ -25,11 +27,11 @@ public class JanrsController(IJanrService janrService)
     }
 
     [HttpPost]
-    public IActionResult Add(AddJanrDto dto)
+    public IActionResult Add(AddAuthorDto dto)
     {
         try
         {
-            _janrService.Create(dto);
+            _Authorservice.Create(dto);
             return RedirectToAction("Index");
         }
         catch (CustomExeption ex)
@@ -43,12 +45,12 @@ public class JanrsController(IJanrService janrService)
     {
         try
         {
-            _janrService.Delete(id);
+            _Authorservice.Delete(id);
             return RedirectToAction("Index");
         }
         catch (CustomExeption)
         {
-            return RedirectToAction("Error", "Home", new { url = "/janrs/index" });
+            return RedirectToAction("Error", "Home", new { url = "/authors/index" });
         }
     }
 
@@ -56,26 +58,26 @@ public class JanrsController(IJanrService janrService)
     {
         try
         {
-            var janr = _janrService.GetById(id);
-            var dto = new UpdateJanrDto
+            var author = _Authorservice.GetById(id);
+            var dto = new UpdateAuthorDto
             {
-                Id = janr.Id,
-                Name = janr.Name
+                Id = author.Id,
+                Name = author.Name
             };
             return View(dto);
         }
         catch (CustomExeption)
         {
-            return RedirectToAction("Error", "Home", new { url = "/janrs/index" });
+            return RedirectToAction("Error", "Home", new { url = "/authors/index" });
         }
     }
 
     [HttpPost]
-    public IActionResult Edit(UpdateJanrDto dto)
+    public IActionResult Edit(UpdateAuthorDto dto)
     {
         try
         {
-            _janrService.Update(dto);
+            _Authorservice.Update(dto);
             return RedirectToAction("Index");
         }
         catch (CustomExeption ex)
