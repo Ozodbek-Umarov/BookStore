@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Auth\" />
+    <Folder Include="Views\Home\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

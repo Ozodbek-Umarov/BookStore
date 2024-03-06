@@ -1,7 +1,9 @@
 ﻿using Book.BusinessLogic.Common;
 using Book.BusinessLogic.DTOs.BookDTOs;
+using Book.BusinessLogic.DTOs.JanrDTOs;
 using Book.BusinessLogic.Interfaces;
 using Book.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Book.Controllers;
@@ -61,4 +63,33 @@ public class HomeController(IAuthorService authorService,
         return View(viewModel);
     }
 
+    public IActionResult Filter(BooksViewModel model, int pageNumber = 1)
+    {
+        var books = bookService.GetAll();
+        var selectedJanrIds = model.JanrChecks!.Where(b => b.IsChecked)
+                                                .Select(b => b.Id)
+                                                .ToList();
+
+        if (selectedJanrIds.Any())
+        {
+            books = books.Where(c => selectedJanrIds.Contains(c.Janr.Id))
+            .ToList();
+        }
+
+        var pageModel = new PageModel<BookDto>(books, pageNumber, 12);
+
+        BooksViewModel viewModel = new()
+        {
+            PageModel = pageModel,
+            JanrChecks = model.JanrChecks
+        };
+
+        return View("Books", viewModel);
+    }
+
+    public IActionResult Get(int id)
+    {
+        var book = bookService.GetById(id);
+        return Json(book);
+    }
 }
