@@ -52,7 +52,7 @@ public class BooksController(IBookService bookService,
             _bookService.Delete(id);
             return RedirectToAction("Index");
         }
-        catch (CustomExeption ex)
+        catch (CustomExeption)
         {
             return RedirectToAction("error", "home", new { url = "/janrs/index" });
         }
@@ -74,7 +74,7 @@ public class BooksController(IBookService bookService,
             };
             return View(dto);
         }
-        catch (CustomExeption ex)
+        catch (CustomExeption)
         {
             return RedirectToAction("error", "home", new { url = "/janrs/index" });
         }
