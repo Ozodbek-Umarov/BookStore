@@ -1,24 +1,26 @@
 ﻿using Book.Data.Entities;
 using Book.Data.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
-namespace Book.Data.Repositories;
-
-public class BookRepository : Repository<Books>, IBookInterface
+namespace Book.Data.Repositories
 {
-    private readonly AppDbContext _dbContext;
-
-    public BookRepository(AppDbContext dbContext)
-        : base(dbContext)
+    public class BookRepository : Repository<Books>, IBookInterface
     {
-        _dbContext = dbContext;
-    }
+        private readonly AppDbContext _dbContext;
 
-    public List<Books> GetBooksWithReleations()
-    {
-        return _dbContext.Books
-            .Include(b => b.Author)
-            .Include(b => b.Janr)
-            .ToList();
+        public BookRepository(AppDbContext dbContext)
+            : base(dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
+        public List<Books> GetBooksWithReleations()
+        {
+            return _dbContext.Books
+                .Include(b => b.Author)
+                .Include(b => b.Janr)
+                .ToList();
+        }
     }
 }

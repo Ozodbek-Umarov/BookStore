@@ -9,10 +9,12 @@ using Book.Data.Interfaces;
 
 namespace Book.BusinessLogic.Services;
 
-public class BookService(IUnitOfWork unitOfWork)
+public class BookService(IUnitOfWork unitOfWork,
+                        IFileService fileService)
     : IBookService
 {
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly IFileService _fileService = fileService;
 
     public void Create(AddBookDto bookDto)
     {
@@ -31,7 +33,7 @@ public class BookService(IUnitOfWork unitOfWork)
             Price = bookDto.Price,
             AuthorId = bookDto.AuthorId,
             JanrId = bookDto.JanrId,
-            ImagePath = bookDto.ImagePath
+            ImagePath = _fileService.UploadImage(bookDto.file)
         };
         _unitOfWork.Books.Add(book);
     }

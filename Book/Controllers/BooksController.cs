@@ -93,16 +93,4 @@ public class BooksController(IBookService bookService,
             return View(dto);
         }
     }
-    public IActionResult Details(int id)
-    {
-        try
-        {
-            var kitob = _bookService.GetById(id);
-            return View(kitob);
-        }
-        catch (CustomExeption)
-        {
-            return RedirectToAction("error", "home", new { url = "/janrs/index" });
-        }
-    }
 }
