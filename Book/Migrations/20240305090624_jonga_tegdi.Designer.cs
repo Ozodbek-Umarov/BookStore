@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Book.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240305064021_jonga_tegdi")]
+    [Migration("20240305090624_jonga_tegdi")]
     partial class jonga_tegdi
     {
         /// <inheritdoc />
@@ -56,6 +56,10 @@ namespace Book.Migrations
 
                     b.Property<int>("AuthorId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("JanrId")
                         .HasColumnType("int");

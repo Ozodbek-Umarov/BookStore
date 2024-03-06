@@ -1,4 +1,7 @@
-﻿namespace Book.BusinessLogic.DTOs.BookDTOs;
+﻿using Book.BusinessLogic.DTOs.AuthorDTOs;
+using Book.BusinessLogic.DTOs.JanrDTOs;
+
+namespace Book.BusinessLogic.DTOs.BookDTOs;
 
 public class AddBookDto
 {
@@ -8,4 +11,6 @@ public class AddBookDto
     public int AuthorId { get; set; }
     public int JanrId { get; set; }
     public string ImagePath { get; set; } = "";
+    public List<JanrDto> Janrlar { get; set; } = new();
+    public List<AuthorDto> Mualliflar { get; set; } = new();
 }

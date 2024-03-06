@@ -64,7 +64,8 @@ namespace Book.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
                     AuthorId = table.Column<int>(type: "int", nullable: false),
-                    JanrId = table.Column<int>(type: "int", nullable: false)
+                    JanrId = table.Column<int>(type: "int", nullable: false),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
