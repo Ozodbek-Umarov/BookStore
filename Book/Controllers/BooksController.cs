@@ -70,7 +70,7 @@ public class BooksController(IBookService bookService,
                 Price = kitob.Price,
                 AuthorId = kitob.Author.Id,
                 JanrId = kitob.Janr.Id,
-                ImagePath = kitob.ImagePath
+               //file = kitob.ImagePath
             };
             return View(dto);
         }
