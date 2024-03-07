@@ -1,6 +1,5 @@
 ﻿using Book.BusinessLogic.DTOs.UserDTOs;
 using Book.BusinessLogic.Interfaces;
-using Book.BusinessLogic.Services;
 using Book.Data.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
