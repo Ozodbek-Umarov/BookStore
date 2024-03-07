@@ -1,5 +1,4 @@
-﻿using Book.Areas.Admin.Interfaces;
-using Book.Data.Entities;
+﻿using Book.Data.Entities;
 using Book.Data.Interfaces;
 
 namespace Book.Data.Repositories;

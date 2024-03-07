@@ -21,6 +21,7 @@ builder.Services.AddTransient<IAuthorService, AuthorService>();
 builder.Services.AddTransient<IBookService, BookService>();
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<IFileService, FileService>();
+builder.Services.AddTransient<IHttpContextAccessor, HttpContextAccessor>();
 
 
 var mapConfig = new MapperConfiguration(cfg =>

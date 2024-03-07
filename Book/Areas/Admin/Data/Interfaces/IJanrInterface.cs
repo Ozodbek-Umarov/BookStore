@@ -1,6 +1,6 @@
-﻿using Book.Areas.Admin.Entities;
+﻿using Book.Data.Entities;
 
-namespace Book.Areas.Admin.Interfaces;
+namespace Book.Data.Interfaces;
 
 public interface IJanrInterface : IRepository<Janr>
 {

@@ -13,6 +13,7 @@ public class AppDbContext : DbContext
     public DbSet<Books> Books { get; set; }
     public DbSet<Author> Authors { get; set; }
     public DbSet<Janr> Janrs { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         User superUser = new()

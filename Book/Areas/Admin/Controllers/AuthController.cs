@@ -2,12 +2,13 @@
 using Book.BusinessLogic.Interfaces;
 using Book.BusinessLogic.Services;
 using Book.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Book.Areas.Admin.Controllers;
 
 [Area("admin")]
-
+[Authorize(AuthenticationSchemes = "Admin")]
 public class AuthController(IAuthService authService)
         : Controller
 {

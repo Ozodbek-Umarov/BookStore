@@ -1,12 +1,7 @@
-﻿
+﻿@inject IAuthService authService
 
 <!DOCTYPE html>
-<html lang="en"
-      class="light-style layout-menu-fixed"
-      dir="ltr"
-      data-theme="theme-default"
-      data-assets-path="~/assets/"
-      data-template="vertical-menu-template-free">
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport"
@@ -45,6 +40,7 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="~/assets/js/config.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 </head>
 
 <body>
@@ -119,25 +115,25 @@
                     </li>
 
                     <li class="menu-item">
-                        <a asp-controller="janrs" asp-action="index" class="menu-link">
-                            <i class="menu-icon tf-icons bx bxs-book-bookmark"></i>
-                            <div data-i18n="Analytics">Janr</div>
+                        <a asp-controller="categories" asp-action="index" class="menu-link">
+                            <i class="menu-icon tf-icons bx bx-category"></i>
+                            <div data-i18n="Analytics">Categories</div>
                         </a>
                     </li>
-                         
+
                     <li class="menu-item">
-                        <a asp-controller="Authors" asp-action="index" class="menu-link">
-                            <i class="menu-icon tf-icons bx bxs-user-rectangle"></i>
-                            <div data-i18n="Analytics">Yozuvchilar</div>
+                        <a asp-controller="brends" asp-action="index" class="menu-link">
+                            <i class="menu-icon tf-icons bi bi-bing"></i>
+                            <div data-i18n="Analytics">Brends</div>
                         </a>
                     </li>
+
                     <li class="menu-item">
-                        <a asp-controller="Books" asp-action="index" class="menu-link">
-                            <i class="menu-icon tf-icons bx bxs-user-rectangle"></i>
-                            <div data-i18n="Analytics">Kitoblar</div>
+                        <a asp-controller="cars" asp-action="index" class="menu-link">
+                            <i class="menu-icon tf-icons bi bi-car-front-fill"></i>
+                            <div data-i18n="Analytics">Cars</div>
                         </a>
                     </li>
-                    
                 </ul>
             </aside>
             <!-- / Menu -->
@@ -157,7 +153,7 @@
                         <!-- Search -->
                         <div class="navbar-nav align-items-center">
                             <div class="nav-item d-flex align-items-center">
-                                Hello Admin
+                                Hello Ozodbek
                             </div>
                         </div>
                         <!-- /Search -->
@@ -168,7 +164,7 @@
                             <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                 <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                     <div class="avatar avatar-online">
-                                        <img src="~/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                        <img src="~/assets/img/avatars/1.png" class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -177,11 +173,11 @@
                                             <div class="d-flex">
                                                 <div class="flex-shrink-0 me-3">
                                                     <div class="avatar avatar-online">
-                                                        <img src="~/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                                        <img src="~/assets/img/avatars/1.png" class="w-px-40 h-auto rounded-circle" />
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <span class="fw-semibold d-block">John Doe</span>
+                                                    <span class="fw-semibold d-block">@authService.GetFullName(Book.Data.Entities.Role.User)</span>
                                                     <small class="text-muted">Admin</small>
                                                 </div>
                                             </div>
@@ -215,7 +211,7 @@
                                         <div class="dropdown-divider"></div>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="auth-login-basic.html">
+                                        <a class="dropdown-item" asp-area="admin" asp-controller="auth" asp-action="logout">
                                             <i class="bx bx-power-off me-2"></i>
                                             <span class="align-middle">Log Out</span>
                                         </a>
@@ -230,12 +226,10 @@
                 <!-- / Navbar -->
                 <!-- Content wrapper -->
                 <div class="content-wrapper">
-                    
+
                     <!-- Content -->
                     @RenderBody()
                     <!-- / Content -->
-
-
                     <!-- Footer -->
                     <footer class="content-footer footer bg-footer-theme">
                         <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
@@ -262,7 +256,6 @@
         <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
-
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="~/assets/vendor/libs/jquery/jquery.js"></script>
@@ -283,5 +276,17 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script>
+        var pageNumber = document.getElementById('pageNumber').value;
+        var Items = document.getElementsByClassName('page-item');
+
+        //get a element inside of Items
+        for (var i = 0; i < Items.length; i++) {
+            if (Items[i].children[0].innerText == pageNumber) {
+                Items[i].classList.add('active');
+            }
+        }
+
+    </script>
 </body>
-</html>

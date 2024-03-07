@@ -1,6 +1,4 @@
-﻿using Book.Areas.Admin.Entities;
-
-namespace Book.Data.Entities;
+﻿namespace Book.Data.Entities;
 
 public class Books : BaseEntity
 {

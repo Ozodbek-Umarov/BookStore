@@ -1,6 +1,4 @@
-﻿using Book.Areas.Admin.Interfaces;
-
-namespace Book.Data.Interfaces;
+﻿namespace Book.Data.Interfaces;
 
 public interface IUnitOfWork
 {
