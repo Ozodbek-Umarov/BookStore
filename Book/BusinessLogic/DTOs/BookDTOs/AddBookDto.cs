@@ -11,7 +11,6 @@ namespace Book.BusinessLogic.DTOs.BookDTOs
         public double Price { get; set; }
         public int AuthorId { get; set; }
         public int JanrId { get; set; }
-        public string ImagePath { get; set; } = "";
         public IFormFile? file { get; set; } 
         public List<JanrDto> Janrlar { get; set; } = new();
         public List<AuthorDto> Mualliflar { get; set; } = new();

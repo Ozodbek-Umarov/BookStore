@@ -33,7 +33,9 @@ public class BookService(IUnitOfWork unitOfWork,
             Price = bookDto.Price,
             AuthorId = bookDto.AuthorId,
             JanrId = bookDto.JanrId,
-            ImagePath = _fileService.UploadImage(bookDto.file)
+            ImagePath = _fileService.UploadImage(bookDto.file!),
+            Author = null,
+            Janr = null
         };
         _unitOfWork.Books.Add(book);
     }
@@ -72,12 +74,12 @@ public class BookService(IUnitOfWork unitOfWork,
         {
             throw new CustomExeption("", "Book not found");
         }
-        book.Name = bookDto.Name;
-        book.Title = bookDto.Description;
-        book.Price = bookDto.Price;
-        book.AuthorId = bookDto.AuthorId;
-        book.JanrId = bookDto.JanrId;
-        book.ImagePath = bookDto.ImagePath;
-        _unitOfWork.Books.Update(book);
+        //book.Name = bookDto.Name;
+        //book.Title = bookDto.Description;
+        //book.Price = bookDto.Price;
+        //book.AuthorId = bookDto.AuthorId;
+        //book.JanrId = bookDto.JanrId;
+        //book.ImagePath = bookDto.ImagePath;
+        //_unitOfWork.Books.Update(book);
     }
 }

@@ -70,7 +70,7 @@ public class BooksController(IBookService bookService,
                 Price = kitob.Price,
                 AuthorId = kitob.Author.Id,
                 JanrId = kitob.Janr.Id,
-                ImagePath = kitob.ImagePath
+               //file = kitob.ImagePath
             };
             return View(dto);
         }
@@ -91,6 +91,18 @@ public class BooksController(IBookService bookService,
         {
             ModelState.AddModelError(ex.Key, ex.Message);
             return View(dto);
+        }
+    }
+    public IActionResult Details(int id)
+    {
+        try
+        {
+            var kitob = _bookService.GetById(id);
+            return View(kitob);
+        }
+        catch (CustomExeption)
+        {
+            return RedirectToAction("error", "home", new { url = "/janrs/index" });
         }
     }
 }
