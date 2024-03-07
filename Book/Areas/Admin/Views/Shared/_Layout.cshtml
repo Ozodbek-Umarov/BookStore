@@ -1,5 +1,6 @@
 ﻿@inject IAuthService authService
 
+
 <!DOCTYPE html>
 
 <head>
@@ -177,7 +178,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <span class="fw-semibold d-block">@authService.GetFullName(Book.Data.Entities.Role.Admin)</span>
+                                                    <span class="fw-semibold d-block">@authService.GetFullName(Role.Admin)</span>
                                                     <small class="text-muted">Admin</small>
                                                 </div>
                                             </div>
