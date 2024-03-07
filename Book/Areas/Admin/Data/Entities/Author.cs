@@ -1,4 +1,6 @@
-﻿namespace Book.Data.Entities;
+﻿using Book.Areas.Admin.Entities;
+
+namespace Book.Data.Entities;
 
 public class Author : BaseEntity
 {

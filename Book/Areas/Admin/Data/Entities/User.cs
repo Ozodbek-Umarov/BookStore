@@ -1,6 +1,6 @@
 ﻿namespace Book.Data.Entities;
 
-public class User   : BaseEntity
+public class User : BaseEntity
 {
     public string FullName { get; set; } = null!;
     public string TelNomer { get; set; } = null!;

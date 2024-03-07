@@ -1,4 +1,6 @@
-﻿namespace Book.Data.Interfaces;
+﻿using Book.Areas.Admin.Interfaces;
+
+namespace Book.Data.Interfaces;
 
 public interface IUnitOfWork
 {
