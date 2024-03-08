@@ -21,11 +21,13 @@ public class AuthController(IAuthService authService)
 
     [HttpPost]
     public async Task<IActionResult> Login(LoginDto dto)
+
     {
         var result = await authService.LoginAsync(dto, Role.Admin);
         if (result.IsSuccess)
         {
             return RedirectToAction("index", "home");
+
         }
 
         dto.Error = result.ErrorMessage;

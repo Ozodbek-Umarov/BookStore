@@ -1,6 +1,5 @@
 ﻿using Book.BusinessLogic.Common;
 using Book.BusinessLogic.DTOs.BookDTOs;
-using Book.BusinessLogic.DTOs.JanrDTOs;
 namespace Book.Models;
 
 public class BooksViewModel
