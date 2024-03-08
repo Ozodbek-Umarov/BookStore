@@ -9,6 +9,8 @@ public class HomeController : Controller
 {
     public IActionResult Index()
     {
+        var res = HttpContext.User;
+
         return View();
     }
     public IActionResult Error(string url)

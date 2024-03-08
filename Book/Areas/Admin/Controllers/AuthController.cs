@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Book.Areas.Admin.Controllers;
 
 [Area("admin")]
-[Authorize(AuthenticationSchemes = "Admin")]
 public class AuthController(IAuthService authService)
         : Controller
 {
