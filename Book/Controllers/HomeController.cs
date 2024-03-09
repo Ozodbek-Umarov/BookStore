@@ -1,9 +1,7 @@
 ﻿using Book.BusinessLogic.Common;
 using Book.BusinessLogic.DTOs.BookDTOs;
-using Book.BusinessLogic.DTOs.JanrDTOs;
 using Book.BusinessLogic.Interfaces;
 using Book.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Book.Controllers;
