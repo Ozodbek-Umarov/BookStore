@@ -29,33 +29,18 @@
                                 <td><strong>@Book.Id</strong></td>
                                 <td>@Book.Name</td>
                                 <td>@Book.Price</td>
+                                <td>@Book.Author.Name</td>
+                                <td>@Book.Janr.Name</td>
                                 <td>
                                     <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
                                         <li data-bs-toggle="tooltip"
                                             data-popup="tooltip-custom"
                                             data-bs-placement="top"
                                             class="avatar avatar-xs pull-up"
-                                            title="@Book.Author.Name">
-                                            <img src="@Book.Author.ImagePath" asp-append-version="true" alt="Avatar" style="object-fit: cover" />
+                                            title="@Book.Description">
+                                            <img src="@Book.ImagePath" asp-append-version="true" alt="Avatar" style="object-fit: cover" />
                                         </li>
                                     </ul>
-                                </td>
-                                <td>
-                                    <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                        <li data-bs-toggle="tooltip"
-                                            data-popup="tooltip-custom"
-                                            data-bs-placement="top"
-                                            class="avatar avatar-xs pull-up"
-                                            title="@Book.Janr.Name">
-                                          
-                                        </li>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <a asp-controller="Books" asp-action="detail" asp-route-id="@Book.Id">
-                                        <i class="bi bi-eye-fill"></i>
-                                        Ko'rish
-                                    </a>
                                 </td>
                                 <td>
                                     <div class="dropdown">
