@@ -1,9 +1,14 @@
 ﻿using Book.BusinessLogic.Common;
 using Book.BusinessLogic.DTOs.BookDTOs;
 using Book.BusinessLogic.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Book.Controllers;
+
+
+[Area("admin")]
+[Authorize(AuthenticationSchemes = "Admin")]
 
 public class BooksController(IBookService bookService,
                             IJanrService janrService,
@@ -20,15 +25,19 @@ public class BooksController(IBookService bookService,
         var pageModel = new PageModel<BookDto>(kitoblar, 1);
         return View(pageModel);
     }
+
+
     public IActionResult Add()
     {
         var janrlar = _janrService.GetAll();
         var mualliflar = _authorService.GetAll();
+
         AddBookDto dto = new AddBookDto
         {
             Janrlar = janrlar,
             Mualliflar = mualliflar
         };
+
         return View(dto);
     }
     [HttpPost]
