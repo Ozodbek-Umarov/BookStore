@@ -2,9 +2,11 @@
 using Book.BusinessLogic.DTOs.BookDTOs;
 using Book.BusinessLogic.Interfaces;
 using Book.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Book.Controllers;
+
 
 public class HomeController(IAuthorService authorService,
                             IBookService bookService,
